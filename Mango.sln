@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{05A6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{35918758-41F1-43EA-BFDE-4066CB6F594D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.CouponAPI", "Mango.Services.CouponAPI\Mango.Services.CouponAPI.csproj", "{285CABAA-5C16-402F-973A-B7C9FBBA3FD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.CouponAPI", "Mango.Services.CouponAPI\Mango.Services.CouponAPI.csproj", "{285CABAA-5C16-402F-973A-B7C9FBBA3FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Web", "Mango.Web\Mango.Web.csproj", "{361ECC28-821A-4B13-BE1D-93829AD6B45B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{285CABAA-5C16-402F-973A-B7C9FBBA3FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{285CABAA-5C16-402F-973A-B7C9FBBA3FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{285CABAA-5C16-402F-973A-B7C9FBBA3FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361ECC28-821A-4B13-BE1D-93829AD6B45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361ECC28-821A-4B13-BE1D-93829AD6B45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361ECC28-821A-4B13-BE1D-93829AD6B45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361ECC28-821A-4B13-BE1D-93829AD6B45B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{285CABAA-5C16-402F-973A-B7C9FBBA3FD9} = {35918758-41F1-43EA-BFDE-4066CB6F594D}
+		{361ECC28-821A-4B13-BE1D-93829AD6B45B} = {4F5BD120-4F24-4AD5-B48A-B8905232EBF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {393CFFA8-79D7-4ECD-B9E3-73B281434531}
