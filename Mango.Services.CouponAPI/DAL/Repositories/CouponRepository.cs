@@ -36,14 +36,14 @@ namespace Mango.Services.CouponAPI.DAL.Repositories
 
         public async Task<CouponDto> GetCouponById(int couponId)
         {
-            var coupon = await _db.Coupons.FirstAsync(i => i.CouponId == couponId);
+            var coupon = await _db.Coupons.FirstAsync(i => i.Id == couponId);
 
             return _mapper.Map<CouponDto>(coupon);
         }
 
         public async Task<CouponDto> GetCouponByCode(string couponCode)
         {
-            var coupon = await _db.Coupons.FirstAsync(i => i.CouponCode.ToLower() == couponCode.ToLower());
+            var coupon = await _db.Coupons.FirstAsync(i => i.Code.ToLower() == couponCode.ToLower());
 
             return _mapper.Map<CouponDto>(coupon);
         }
@@ -60,7 +60,7 @@ namespace Mango.Services.CouponAPI.DAL.Repositories
 
         public async Task DeleteCoupon(int couponId)
         {
-            var coupon = await _db.Coupons.FirstAsync(i => i.CouponId == couponId);
+            var coupon = await _db.Coupons.FirstAsync(i => i.Id == couponId);
 
             _db.Coupons.Remove(coupon);
 

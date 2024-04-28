@@ -8,117 +8,129 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
     [ApiController]
     public class CouponAPIController : Controller
     {
-        private readonly ICouponRepository _couponRepository;
+        private readonly ICouponRepository _couponRepo;
         private ResponseDto _response;
 
-        public CouponAPIController(ICouponRepository couponRepository)
+        public CouponAPIController(ICouponRepository couponRepo)
         {
-            _couponRepository = couponRepository;
+            _couponRepo = couponRepo;
             _response = new();
         }
 
         [HttpGet]
-        public async Task<ResponseDto> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var coupons = await _couponRepository.GetCoupons();
+                var coupons = await _couponRepo.GetCoupons();
+
                 _response.Result = coupons;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ResponseDto> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var coupon = await _couponRepository.GetCouponById(id);
+                var coupon = await _couponRepo.GetCouponById(id);
+
                 _response.Result = coupon;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
 
         [HttpGet]
         [Route("GetByCode/{code}")]
-        public async Task<ResponseDto> Get(string code)
+        public async Task<IActionResult> Get(string code)
         {
             try
             {
-                var coupon = await _couponRepository.GetCouponByCode(code);
+                var coupon = await _couponRepo.GetCouponByCode(code);
+
                 _response.Result = coupon;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
 
         [HttpPost]
-        public async Task<ResponseDto> Post([FromBody] CouponDto couponDto)
+        public async Task<IActionResult> Post([FromBody] CouponDto couponDto)
         {
             try
             {
-                var coupon = await _couponRepository.CreateCoupon(couponDto);
+                var coupon = await _couponRepo.CreateCoupon(couponDto);
+
                 _response.Result = coupon;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
 
         [HttpPut]
-        public async Task<ResponseDto> Put([FromBody] CouponDto couponDto)
+        public async Task<IActionResult> Put([FromBody] CouponDto couponDto)
         {
             try
             {
-                var coupon = await _couponRepository.UpdateCounpon(couponDto);
+                var coupon = await _couponRepo.UpdateCounpon(couponDto);
+
                 _response.Result = coupon;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<ResponseDto> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                await _couponRepository.DeleteCoupon(id);
+                await _couponRepo.DeleteCoupon(id);
+
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message;
-            }
 
-            return _response;
+                return BadRequest(_response);
+            }
         }
     }
 }

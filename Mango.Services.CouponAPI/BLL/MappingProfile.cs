@@ -6,7 +6,7 @@ namespace Mango.Services.CouponAPI.BLL
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<CouponDto, Coupon>().ReverseMap();
         }

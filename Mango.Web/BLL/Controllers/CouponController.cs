@@ -1,5 +1,4 @@
-﻿using Mango.Web.BLL.Services;
-using Mango.Web.BLL.Services.IServices;
+﻿using Mango.Web.BLL.Services.IServices;
 using Mango.Web.DAL.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -44,7 +43,7 @@ namespace Mango.Web.BLL.Controllers
             {
                 var response = await _couponService.CreateCouponAsync(model);
 
-                if (response != null &&  response.IsSuccess)
+                if (response != null && response.IsSuccess)
                 {
                     TempData["success"] = "Coupon created successfully";
                     return RedirectToAction(nameof(CouponIndex));
@@ -78,7 +77,7 @@ namespace Mango.Web.BLL.Controllers
         [HttpPost]
         public async Task<IActionResult> CouponDelete(CouponDto couponDto)
         {
-            var response = await _couponService.DeleteCouponAsync(couponDto.CouponId);
+            var response = await _couponService.DeleteCouponAsync(couponDto.Id);
 
             if (response != null && response.IsSuccess)
             {
