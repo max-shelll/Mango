@@ -23,7 +23,7 @@ namespace Mango.Services.AuthAPI.BLL.Controllers
         {
             try
             {
-                var loginResponse = await _authService.Login(model);
+                var loginResponse = await _authService.LoginAsync(model);
 
                 if (loginResponse.User == null)
                 {
@@ -50,7 +50,7 @@ namespace Mango.Services.AuthAPI.BLL.Controllers
         {
             try
             {
-                var errorMessage = await _authService.Register(model);
+                var errorMessage = await _authService.RegisterAsync(model);
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
@@ -76,7 +76,7 @@ namespace Mango.Services.AuthAPI.BLL.Controllers
         {
             try
             {
-                var assignRoleSuccessful = await _authService.AssignRole(model);
+                var assignRoleSuccessful = await _authService.AssignRoleAsync(model);
 
                 if (!assignRoleSuccessful)
                 {

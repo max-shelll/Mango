@@ -1,6 +1,7 @@
 ﻿using Mango.Web.BLL.Services.IServices;
 using Mango.Web.DAL.Enums;
-using Mango.Web.DAL.Models.Dto;
+using Mango.Web.DAL.Models.Dto.Request;
+using Mango.Web.DAL.Models.Dto.Response;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
@@ -10,13 +11,16 @@ namespace Mango.Web.BLL.Services
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ITokenProvider _tokenProvider;
 
-        public BaseService(IHttpClientFactory httpClientFactory)
+        public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
             _httpClientFactory = httpClientFactory;
+            _tokenProvider = tokenProvider;
+
         }
 
-        public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+        public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
         {
             try
             {
@@ -24,6 +28,12 @@ namespace Mango.Web.BLL.Services
                 var message = new HttpRequestMessage();
 
                 message.Headers.Add("Accept", "application/json");
+
+                if (withBearer)
+                {
+                    var token = _tokenProvider.GetToken();
+                    message.Headers.Add("Authorization", $"Bearer {token}");
+                }
 
                 message.RequestUri = new Uri(requestDto.Url);
 

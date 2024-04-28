@@ -1,4 +1,5 @@
 ﻿using Mango.Web.DAL.Models.Dto;
+using Mango.Web.DAL.Models.Dto.Response;
 
 namespace Mango.Web.BLL.Services.IServices
 {

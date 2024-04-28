@@ -17,7 +17,7 @@ namespace Mango.Services.CouponAPI.DAL.Repositories
             _mapper = mapper;
         }
 
-        public async Task<CouponDto> CreateCoupon(CouponDto couponDto)
+        public async Task<CouponDto> CreateCouponAsync(CouponDto couponDto)
         {
             var coupon = _mapper.Map<Coupon>(couponDto);
 
@@ -27,28 +27,28 @@ namespace Mango.Services.CouponAPI.DAL.Repositories
             return _mapper.Map<CouponDto>(coupon);
         }
 
-        public async Task<IEnumerable<CouponDto>> GetCoupons()
+        public async Task<IEnumerable<CouponDto>> GetCouponsAsync()
         {
             var couponList = await _db.Coupons.ToListAsync();
 
             return _mapper.Map<List<CouponDto>>(couponList);
         }
 
-        public async Task<CouponDto> GetCouponById(int couponId)
+        public async Task<CouponDto> GetCouponByIdAsync(int couponId)
         {
             var coupon = await _db.Coupons.FirstAsync(i => i.Id == couponId);
 
             return _mapper.Map<CouponDto>(coupon);
         }
 
-        public async Task<CouponDto> GetCouponByCode(string couponCode)
+        public async Task<CouponDto> GetCouponByCodeAsync(string couponCode)
         {
             var coupon = await _db.Coupons.FirstAsync(i => i.Code.ToLower() == couponCode.ToLower());
 
             return _mapper.Map<CouponDto>(coupon);
         }
 
-        public async Task<CouponDto> UpdateCounpon(CouponDto couponDto)
+        public async Task<CouponDto> UpdateCounponAsync(CouponDto couponDto)
         {
             var coupon = _mapper.Map<Coupon>(couponDto);
 
@@ -58,7 +58,7 @@ namespace Mango.Services.CouponAPI.DAL.Repositories
             return _mapper.Map<CouponDto>(coupon);
         }
 
-        public async Task DeleteCoupon(int couponId)
+        public async Task DeleteCouponAsync(int couponId)
         {
             var coupon = await _db.Coupons.FirstAsync(i => i.Id == couponId);
 

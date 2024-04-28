@@ -5,8 +5,8 @@ namespace Mango.Services.AuthAPI.BLL.Services.IServices
 {
     public interface IAuthService
     {
-        Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto);
-        Task<string> Register(RegistrationRequestDto registrationRequestDto);
-        Task<bool> AssignRole(RoleAssignRequestDto roleAssignRequestDto);
+        Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto);
+        Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto);
+        Task<bool> AssignRoleAsync(RoleAssignRequestDto roleAssignRequestDto);
     }
 }

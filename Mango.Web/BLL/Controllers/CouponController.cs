@@ -14,6 +14,7 @@ namespace Mango.Web.BLL.Controllers
             _couponService = couponService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> CouponIndex()
         {
             var couponList = new List<CouponDto>();
@@ -31,6 +32,7 @@ namespace Mango.Web.BLL.Controllers
             return View(couponList);
         }
 
+        [HttpGet]
         public async Task<IActionResult> CouponCreate()
         {
             return View();
@@ -57,6 +59,7 @@ namespace Mango.Web.BLL.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> CouponDelete(int couponId)
         {
             var response = await _couponService.GetCouponAsync(couponId);

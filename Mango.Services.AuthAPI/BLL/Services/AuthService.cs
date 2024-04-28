@@ -27,7 +27,7 @@ namespace Mango.Services.AuthAPI.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Mango.Services.AuthAPI.BLL.Services
             }
         }
 
-        public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
+        public async Task<string> RegisterAsync(RegistrationRequestDto registrationRequestDto)
         {
             var user = new IdentityUser()
             {
@@ -70,6 +70,11 @@ namespace Mango.Services.AuthAPI.BLL.Services
 
             try
             {
+                if (await _userManager.FindByEmailAsync(registrationRequestDto.Email) != null)
+                {
+                    return "This email is already used";
+                }
+
                 var result = await _userManager.CreateAsync(user, registrationRequestDto.Password);
 
                 if (result.Succeeded)
@@ -87,7 +92,7 @@ namespace Mango.Services.AuthAPI.BLL.Services
             }
         }
 
-        public async Task<bool> AssignRole(RoleAssignRequestDto roleAssignRequestDto)
+        public async Task<bool> AssignRoleAsync(RoleAssignRequestDto roleAssignRequestDto)
         {
             try
             {

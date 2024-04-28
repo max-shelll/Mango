@@ -1,10 +1,15 @@
 
 using AutoMapper;
 using Mango.Services.CouponAPI.BLL;
+using Mango.Services.CouponAPI.BLL.Extensions;
 using Mango.Services.CouponAPI.DAL;
 using Mango.Services.CouponAPI.DAL.Repositories;
 using Mango.Services.CouponAPI.DAL.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Mango.Services.CouponAPI
 {
@@ -32,7 +37,32 @@ namespace Mango.Services.CouponAPI
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(name: "Bearer", securityScheme: new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            }
+                        }, new string[] {}
+                    }
+                });
+            });
+
+            builder.AddAppAuthetication();
 
             var app = builder.Build();
 
@@ -43,7 +73,7 @@ namespace Mango.Services.CouponAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

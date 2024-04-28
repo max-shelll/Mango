@@ -1,6 +1,6 @@
 ﻿using Mango.Web.DAL.Enums;
 
-namespace Mango.Web.DAL.Models.Dto
+namespace Mango.Web.DAL.Models.Dto.Request
 {
     public class RequestDto
     {

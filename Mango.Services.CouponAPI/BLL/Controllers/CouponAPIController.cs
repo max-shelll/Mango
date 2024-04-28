@@ -1,11 +1,13 @@
 ﻿using Mango.Services.CouponAPI.DAL.Models.Dto;
 using Mango.Services.CouponAPI.DAL.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.CouponAPI.BLL.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : Controller
     {
         private readonly ICouponRepository _couponRepo;
@@ -22,7 +24,7 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
         {
             try
             {
-                var coupons = await _couponRepo.GetCoupons();
+                var coupons = await _couponRepo.GetCouponsAsync();
 
                 _response.Result = coupons;
                 return Ok(_response);
@@ -42,7 +44,7 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
         {
             try
             {
-                var coupon = await _couponRepo.GetCouponById(id);
+                var coupon = await _couponRepo.GetCouponByIdAsync(id);
 
                 _response.Result = coupon;
                 return Ok(_response);
@@ -62,7 +64,7 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
         {
             try
             {
-                var coupon = await _couponRepo.GetCouponByCode(code);
+                var coupon = await _couponRepo.GetCouponByCodeAsync(code);
 
                 _response.Result = coupon;
                 return Ok(_response);
@@ -77,11 +79,12 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] CouponDto couponDto)
         {
             try
             {
-                var coupon = await _couponRepo.CreateCoupon(couponDto);
+                var coupon = await _couponRepo.CreateCouponAsync(couponDto);
 
                 _response.Result = coupon;
                 return Ok(_response);
@@ -96,11 +99,12 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put([FromBody] CouponDto couponDto)
         {
             try
             {
-                var coupon = await _couponRepo.UpdateCounpon(couponDto);
+                var coupon = await _couponRepo.UpdateCounponAsync(couponDto);
 
                 _response.Result = coupon;
                 return Ok(_response);
@@ -116,11 +120,12 @@ namespace Mango.Services.CouponAPI.BLL.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                await _couponRepo.DeleteCoupon(id);
+                await _couponRepo.DeleteCouponAsync(id);
 
                 return Ok(_response);
             }
