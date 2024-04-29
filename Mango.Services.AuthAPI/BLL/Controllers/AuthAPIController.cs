@@ -1,6 +1,7 @@
 ﻿using Mango.Services.AuthAPI.BLL.Services.IServices;
 using Mango.Services.AuthAPI.DAL.Models.Dto.Request;
 using Mango.Services.AuthAPI.DAL.Models.Dto.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.AuthAPI.BLL.Controllers
@@ -72,6 +73,7 @@ namespace Mango.Services.AuthAPI.BLL.Controllers
         }
 
         [HttpPost("assignRole")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignRole([FromBody] RoleAssignRequestDto model)
         {
             try
