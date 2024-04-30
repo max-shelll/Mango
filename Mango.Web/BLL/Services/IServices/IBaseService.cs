@@ -1,10 +1,10 @@
-﻿using Mango.Web.DAL.Models.Dto.Request;
-using Mango.Web.DAL.Models.Dto.Response;
+﻿using Mango.Web.DAL.Models.Dtos.Request;
+using Mango.Web.DAL.Models.Dtos.Response;
 
 namespace Mango.Web.BLL.Services.IServices
 {
-    public interface IBaseService
-    {
-        Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true);
-    }
+	public interface IBaseService
+	{
+		Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true);
+	}
 }
