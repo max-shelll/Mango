@@ -7,18 +7,18 @@ namespace Mango.Web.BLL.Controllers
 {
 	public class ProductController : Controller
 	{
-		private readonly IProductService _productSerivce;
+		private readonly IProductService _productService;
 
 		public ProductController(IProductService productSerivce)
 		{
-			_productSerivce = productSerivce;
+			_productService = productSerivce;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> ProductIndex()
 		{
 			var productList = new List<ProductDto>();
-			var response = await _productSerivce.GetAllProductsAsync();
+			var response = await _productService.GetAllProductsAsync();
 
 			if (response.IsSuccess)
 			{
@@ -43,7 +43,7 @@ namespace Mango.Web.BLL.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var response = await _productSerivce.CreateProductAsync(productDto);
+				var response = await _productService.CreateProductAsync(productDto);
 
 				if (response != null && response.IsSuccess)
 				{
@@ -62,7 +62,7 @@ namespace Mango.Web.BLL.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ProductUpdate(int productId)
 		{
-            var response = await _productSerivce.GetProductAsync(productId);
+            var response = await _productService.GetProductAsync(productId);
 
             if (response != null && response.IsSuccess)
             {
@@ -80,7 +80,7 @@ namespace Mango.Web.BLL.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ProductUpdate(ProductDto productDto)
 		{
-            var response = await _productSerivce.UpdateProductAsync(productDto);
+            var response = await _productService.UpdateProductAsync(productDto);
 
             if (response != null && response.IsSuccess)
             {
@@ -98,7 +98,7 @@ namespace Mango.Web.BLL.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ProductDelete(int productId)
 		{
-			var response = await _productSerivce.GetProductAsync(productId);
+			var response = await _productService.GetProductAsync(productId);
 
 			if (response != null && response.IsSuccess)
 			{
@@ -116,7 +116,7 @@ namespace Mango.Web.BLL.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ProductDelete(ProductDto productDto)
 		{
-			var response = await _productSerivce.DeleteProductAsync(productDto.Id);
+			var response = await _productService.DeleteProductAsync(productDto.Id);
 
 			if (response != null && response.IsSuccess)
 			{

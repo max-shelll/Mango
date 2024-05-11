@@ -73,7 +73,6 @@ namespace Mango.Services.AuthAPI.BLL.Controllers
 		}
 
 		[HttpPost("assignRole")]
-		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AssignRole([FromBody] RoleAssignRequestDto model)
 		{
 			try

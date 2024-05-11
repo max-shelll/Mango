@@ -7,7 +7,6 @@ namespace Mango.Services.ProductAPI.BLL.Controllers
 {
 	[Route("api/product")]
 	[ApiController]
-	[Authorize]
 	public class ProductAPIController : Controller
 	{
 		private readonly IProductRepository _productRepo;
