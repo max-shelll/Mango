@@ -1,4 +1,5 @@
-﻿using Mango.Web.BLL.Services.IServices;
+﻿using IdentityModel;
+using Mango.Web.BLL.Services.IServices;
 using Mango.Web.DAL.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace Mango.Web.BLL.Controllers
 	public class HomeController : Controller
 	{
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-        public HomeController(IProductService productService)
+        public HomeController(IProductService productService, ICartService cartService)
         {
             _productService = productService;
+            _cartService = cartService;
         }
 
 		[HttpGet]
@@ -35,7 +38,7 @@ namespace Mango.Web.BLL.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Details(int productId)
+        public async Task<IActionResult> ProductDetails(int productId)
         {
             var product = new ProductDto();
             var response = await _productService.GetProductAsync(productId);
@@ -50,6 +53,43 @@ namespace Mango.Web.BLL.Controllers
             }
 
             return View(product);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ProductDetails(ProductDto productDto)
+        {
+            var cartDto = new CartDto()
+            {
+                CartHeader = new()
+                {
+                    UserId = User.Claims.Where(u => u.Type == JwtClaimTypes.Subject)?.FirstOrDefault()?.Value
+                }
+            };
+
+            var cartDetails = new CartDetailsDto()
+            {
+                Count = productDto.Count,
+                ProductId = productDto.Id
+            };
+
+            var cartDetailDtos = new List<CartDetailsDto>() { cartDetails };
+
+            cartDto.CartDetails = cartDetailDtos;
+
+            var response = await _cartService.UpsertCartAsync(cartDto);
+
+            if (response.IsSuccess)
+            {
+                TempData["success"] = "Item has been added to the Shopping cart";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+
+            return View(productDto);
         }
     }
 }

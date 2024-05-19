@@ -16,17 +16,19 @@ namespace Mango.Web
 			SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
 			SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 			SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+            SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
 
 			// Add services to the container.
 
-			builder.Services.AddHttpClient<ICouponService, CouponService>();
+			builder.Services.AddHttpClient();
 
-			builder.Services
+            builder.Services
 				.AddScoped<IBaseService, BaseService>()
 				.AddScoped<ICouponService, CouponService>()
 				.AddScoped<IAuthService, AuthService>()
 				.AddScoped<ITokenProvider, TokenProvider>()
-				.AddScoped<IProductService, ProductService>();
+				.AddScoped<IProductService, ProductService>()
+				.AddScoped<ICartService, CartService>();
 
 			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
